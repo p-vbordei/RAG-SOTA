@@ -50,3 +50,44 @@ SpaCy
 ## Interfaces under consideration for MVP
 - Streamlit
 - Retool
+
+
+
+
+## Pdf Parser
+KNOWLEDGE SOURCE
+
+https://pradeepundefned.medium.com/a-comparison-of-python-libraries-for-pdf-data-extraction-for-text-images-and-tables-c75e5dbcfef8
+https://www.researchgate.net/publication/369368936_A_Benchmark_of_PDF_Information_Extraction_Tools_using_a_Multi-Task_and_Multi-Domain_Evaluation_Framework_for_Academic_Documents
+
+
+Llama Index
+
+https://llamahub.ai/l/readers/llama-index-readers-nougat-ocr?from=
+
+
+
+PDF Parser Project Structure
+
+pdf_parser_project/
+│
+├── src/                    # Source code for the PDF parser
+│   ├── __init__.py         # Makes src a Python package
+│   ├── main.py             # Entry point to run the parser
+│   ├── pdf_parser.py       # Core functionalities for PDF parsing
+│   └── ocr.py              # OCR functionalities for image-based PDFs
+│
+├── tests/                  # Unit tests for your application
+│   ├── __init__.py         # Makes tests a Python package
+│   └── test_pdf_parser.py  # Test cases for pdf_parser functionalities
+│
+├── docs/                   # Documentation files
+│   └── README.md           # Project README with usage instructions
+│
+├── data/                   # Folder for PDF files and other data
+│   ├── input/              # Input PDFs to be parsed
+│   └── output/             # Output from the parsing process
+│
+├── requirements.txt        # Project dependencies
+└── .gitignore              # Specifies intentionally untracked files to ignore
+
