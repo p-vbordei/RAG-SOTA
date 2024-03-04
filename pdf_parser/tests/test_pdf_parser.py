@@ -1,4 +1,4 @@
-# tests/test_pdf_parser.py
+# pdf_parser/tests/test_pdf_parser.py
 
 import unittest
 from src.pdf_parser import parse_pdf

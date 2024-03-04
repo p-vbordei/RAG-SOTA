@@ -1,4 +1,4 @@
-### src/ocr.py 
+### pdf_parser/src/ocr.py 
 
 from PIL import Image
 import pytesseract

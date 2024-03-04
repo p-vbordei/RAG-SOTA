@@ -60,39 +60,12 @@ KNOWLEDGE SOURCE
 https://pradeepundefned.medium.com/a-comparison-of-python-libraries-for-pdf-data-extraction-for-text-images-and-tables-c75e5dbcfef8
 https://www.researchgate.net/publication/369368936_A_Benchmark_of_PDF_Information_Extraction_Tools_using_a_Multi-Task_and_Multi-Domain_Evaluation_Framework_for_Academic_Documents
 
-
 Llama Index
-
 https://llamahub.ai/l/readers/llama-index-readers-nougat-ocr?from=
 
 
 
-PDF Parser Project Structure
-
-    pdf_parser_project/
-    │
-    ├── src/                    # Source code for the PDF parser
-    │   ├── __init__.py         # Makes src a Python package
-    │   ├── main.py             # Entry point to run the parser
-    │   ├── pdf_parser.py       # Core functionalities for PDF parsing
-    │   └── ocr.py              # OCR functionalities for image-based PDFs
-    │
-    ├── tests/                  # Unit tests for your application
-    │   ├── __init__.py         # Makes tests a Python package
-    │   └── test_pdf_parser.py  # Test cases for pdf_parser functionalities
-    │
-    ├── docs/                   # Documentation files
-    │   └── README.md           # Project README with usage instructions
-    │
-    ├── data/                   # Folder for PDF files and other data
-    │   ├── input/              # Input PDFs to be parsed
-    │   └── output/             # Output from the parsing process
-    │
-    ├── requirements.txt        # Project dependencies
-    └── .gitignore              # Specifies intentionally untracked files to ignore
-
-
-    ## Kindly install tessaract
+ ## Kindly install tessaract
             For macOS 
             brew install tesseract
             brew install tesseract-lang
@@ -100,5 +73,61 @@ PDF Parser Project Structure
             For Ubuntu
             sudo apt-get update
             sudo apt-get install tesseract-ocr
+
+
+
+
+# Project Structure
+
+RAG-SOTA/
+│
+├── embedding/                # Module for document embedding
+│   ├── __init__.py
+│   └── api_client.py        # API client for external embedding services
+│
+├── ner/                      # Named Entity Recognition (NER) module
+│   ├── __init__.py
+│   ├── ner_model.py         # NER model implementation
+│   └── ner_utils.py         # Utilities for NER tasks
+│
+├── knowledge_graph/         # Knowledge graph construction module
+│   ├── __init__.py
+│   ├── graph_builder.py     # Script for building knowledge graphs
+│   └── graph_utils.py       # Utilities for graph operations
+│
+├── pdf_parser/               # PDF parsing module (as specified)
+│   ├── src/
+│   │   ├── __init__.py
+│   │   ├── main.py
+│   │   ├── pdf_parser.py
+│   │   └── ocr.py
+│   ├── tests/
+│   │   ├── __init__.py
+│   │   └── test_pdf_parser.py
+│   ├── docs/
+│   │   └── README.md
+│   ├── data/
+│   │   ├── input/
+│   │   └── output/
+│   ├── requirements.txt
+│   └── .gitignore
+│
+├── interface/               # User interface module
+│   ├── __init__.py
+│   ├── streamlit_app.py     # Streamlit application for MVP
+│   └── retool_integration.py # Optional: Integration with Retool if needed
+│
+├── tests/                   # Integration and unit tests for the project
+│   ├── __init__.py
+│   └── test_end_to_end.py   # End-to-end tests of the pipeline
+│
+├── docs/                    # Project documentation
+│   ├── setup.md
+│   ├── usage.md
+│   └── development.md
+│
+├── requirements.txt         # Main project dependencies
+└── .gitignore
+
 
 
