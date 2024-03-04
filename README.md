@@ -91,3 +91,14 @@ PDF Parser Project Structure
     ├── requirements.txt        # Project dependencies
     └── .gitignore              # Specifies intentionally untracked files to ignore
 
+
+    ## Kindly install tessaract
+            For macOS 
+            brew install tesseract
+            brew install tesseract-lang
+
+            For Ubuntu
+            sudo apt-get update
+            sudo apt-get install tesseract-ocr
+
+

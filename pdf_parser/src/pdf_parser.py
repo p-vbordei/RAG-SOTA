@@ -15,5 +15,6 @@ def parse_pdf(pdf_path):
         return None
 
 # python -m unittest tests/test_pdf_parser.py
+# python src/main.py data/input/manual_utilizare_portal_onrc_recom.pdf
 
 #### end ####
