@@ -69,25 +69,25 @@ https://llamahub.ai/l/readers/llama-index-readers-nougat-ocr?from=
 
 PDF Parser Project Structure
 
-pdf_parser_project/
-│
-├── src/                    # Source code for the PDF parser
-│   ├── __init__.py         # Makes src a Python package
-│   ├── main.py             # Entry point to run the parser
-│   ├── pdf_parser.py       # Core functionalities for PDF parsing
-│   └── ocr.py              # OCR functionalities for image-based PDFs
-│
-├── tests/                  # Unit tests for your application
-│   ├── __init__.py         # Makes tests a Python package
-│   └── test_pdf_parser.py  # Test cases for pdf_parser functionalities
-│
-├── docs/                   # Documentation files
-│   └── README.md           # Project README with usage instructions
-│
-├── data/                   # Folder for PDF files and other data
-│   ├── input/              # Input PDFs to be parsed
-│   └── output/             # Output from the parsing process
-│
-├── requirements.txt        # Project dependencies
-└── .gitignore              # Specifies intentionally untracked files to ignore
+    pdf_parser_project/
+    │
+    ├── src/                    # Source code for the PDF parser
+    │   ├── __init__.py         # Makes src a Python package
+    │   ├── main.py             # Entry point to run the parser
+    │   ├── pdf_parser.py       # Core functionalities for PDF parsing
+    │   └── ocr.py              # OCR functionalities for image-based PDFs
+    │
+    ├── tests/                  # Unit tests for your application
+    │   ├── __init__.py         # Makes tests a Python package
+    │   └── test_pdf_parser.py  # Test cases for pdf_parser functionalities
+    │
+    ├── docs/                   # Documentation files
+    │   └── README.md           # Project README with usage instructions
+    │
+    ├── data/                   # Folder for PDF files and other data
+    │   ├── input/              # Input PDFs to be parsed
+    │   └── output/             # Output from the parsing process
+    │
+    ├── requirements.txt        # Project dependencies
+    └── .gitignore              # Specifies intentionally untracked files to ignore
 
