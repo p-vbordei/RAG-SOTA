@@ -14,5 +14,6 @@ def parse_pdf(pdf_path):
         print(f"Error processing {pdf_path}: {e}")
         return None
 
+# python -m unittest tests/test_pdf_parser.py
 
 #### end ####
