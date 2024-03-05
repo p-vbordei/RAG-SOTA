@@ -16,6 +16,7 @@ class TestMongoDBConnection(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
+# in project root
 # python -m unittest discover -s tests
 
 ### end ###
