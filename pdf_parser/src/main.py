@@ -1,4 +1,4 @@
-# pdf_parser/src/main.py
+# RAG-SOTA/pdf_parser/src/main.py
 import argparse
 from pdf_parser import parse_pdf
 from ocr import apply_ocr_to_pdf

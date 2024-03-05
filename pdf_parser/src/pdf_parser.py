@@ -1,4 +1,4 @@
-# pdf_parser/src/pdf_parser.py
+# RAG-SOTA/ppdf_parser/src/pdf_parser.py
 import pdfplumber
 
 def parse_pdf(pdf_path):

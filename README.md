@@ -59,6 +59,9 @@ KNOWLEDGE SOURCE
 
 https://pradeepundefned.medium.com/a-comparison-of-python-libraries-for-pdf-data-extraction-for-text-images-and-tables-c75e5dbcfef8
 https://www.researchgate.net/publication/369368936_A_Benchmark_of_PDF_Information_Extraction_Tools_using_a_Multi-Task_and_Multi-Domain_Evaluation_Framework_for_Academic_Documents
+https://huggingface.co/spaces/ABBNikit/pdf-chatbot/blob/main/app.py
+https://huggingface.co/spaces/saifmaxx/pdf_m/blob/main/app.py
+
 
 Llama Index
 https://llamahub.ai/l/readers/llama-index-readers-nougat-ocr?from=
@@ -76,11 +79,31 @@ https://llamahub.ai/l/readers/llama-index-readers-nougat-ocr?from=
 
 
 
+            brew install git-lfs
+            git lfs install
+
+
+
+## NER Model
+This project needs to handle multiple european languages, especially Romanian. It is a critical project condition, to be able to be performant in Romanian.
+Initial library:
+https://huggingface.co/tomaarsen/span-marker-mbert-base-multinerd
+tomaarsen/span-marker-mbert-base-multinerd
+
+
+
+
 
 # Project Structure
 
 RAG-SOTA/
-│
+├── db/  
+│   ├── __init__.py
+│   ├── annotations_db.py     # Operations related to annotations storage
+│   ├── documents_db.py       # Operations related to documents storage
+│   └── mongo_client.py       # MongoDB client configuration
+│   ├── save_to_db.py #  that handles the database interaction for OCR
+
 ├── embedding/                # Module for document embedding
 │   ├── __init__.py
 │   └── api_client.py        # API client for external embedding services
@@ -98,12 +121,12 @@ RAG-SOTA/
 ├── pdf_parser/               # PDF parsing module (as specified)
 │   ├── src/
 │   │   ├── __init__.py
-│   │   ├── main.py
-│   │   ├── pdf_parser.py
-│   │   └── ocr.py
+│   │   ├── main.py     # Main script for PDF parsing
+│   │   ├── pdf_parser.py # PDF parsing implementation
+│   │   └── ocr.py # OCR functionality
 │   ├── tests/
 │   │   ├── __init__.py
-│   │   └── test_pdf_parser.py
+│   │   └── test_pdf_parser.py  # Tests for PDF parser
 │   ├── docs/
 │   │   └── README.md
 │   ├── data/
@@ -123,7 +146,7 @@ RAG-SOTA/
 │
 ├── docs/                    # Project documentation
 │   ├── setup.md
-│   ├── usage.md
+│   ├── usage.md 
 │   └── development.md
 │
 ├── requirements.txt         # Main project dependencies
