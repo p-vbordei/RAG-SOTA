@@ -94,63 +94,63 @@ tomaarsen/span-marker-mbert-base-multinerd
 
 
 
-# Project Structure
+## Project Structure
 
-RAG-SOTA/
-├── db/  
-│   ├── __init__.py
-│   ├── annotations_db.py     # Operations related to annotations storage
-│   ├── documents_db.py       # Operations related to documents storage
-│   └── mongo_client.py       # MongoDB client configuration
-│   ├── save_to_db.py #  that handles the database interaction for OCR
+            RAG-SOTA/
+            ├── db/  
+            │   ├── __init__.py
+            │   ├── annotations_db.py     # Operations related to annotations storage
+            │   ├── documents_db.py       # Operations related to documents storage
+            │   └── mongo_client.py       # MongoDB client configuration
+            │   ├── save_to_db.py #  that handles the database interaction for OCR
 
-├── embedding/                # Module for document embedding
-│   ├── __init__.py
-│   └── api_client.py        # API client for external embedding services
-│
-├── ner/                      # Named Entity Recognition (NER) module
-│   ├── __init__.py
-│   ├── ner_model.py         # NER model implementation
-│   └── ner_utils.py         # Utilities for NER tasks
-│
-├── knowledge_graph/         # Knowledge graph construction module
-│   ├── __init__.py
-│   ├── graph_builder.py     # Script for building knowledge graphs
-│   └── graph_utils.py       # Utilities for graph operations
-│
-├── pdf_parser/               # PDF parsing module (as specified)
-│   ├── src/
-│   │   ├── __init__.py
-│   │   ├── main.py     # Main script for PDF parsing
-│   │   ├── pdf_parser.py # PDF parsing implementation
-│   │   └── ocr.py # OCR functionality
-│   ├── tests/
-│   │   ├── __init__.py
-│   │   └── test_pdf_parser.py  # Tests for PDF parser
-│   ├── docs/
-│   │   └── README.md
-│   ├── data/
-│   │   ├── input/
-│   │   └── output/
-│   ├── requirements.txt
-│   └── .gitignore
-│
-├── interface/               # User interface module
-│   ├── __init__.py
-│   ├── streamlit_app.py     # Streamlit application for MVP
-│   └── retool_integration.py # Optional: Integration with Retool if needed
-│
-├── tests/                   # Integration and unit tests for the project
-│   ├── __init__.py
-│   └── test_end_to_end.py   # End-to-end tests of the pipeline
-│
-├── docs/                    # Project documentation
-│   ├── setup.md
-│   ├── usage.md 
-│   └── development.md
-│
-├── requirements.txt         # Main project dependencies
-└── .gitignore
+            ├── embedding/                # Module for document embedding
+            │   ├── __init__.py
+            │   └── api_client.py        # API client for external embedding services
+            │
+            ├── ner/                      # Named Entity Recognition (NER) module
+            │   ├── __init__.py
+            │   ├── ner_model.py         # NER model implementation
+            │   └── ner_utils.py         # Utilities for NER tasks
+            │
+            ├── knowledge_graph/         # Knowledge graph construction module
+            │   ├── __init__.py
+            │   ├── graph_builder.py     # Script for building knowledge graphs
+            │   └── graph_utils.py       # Utilities for graph operations
+            │
+            ├── pdf_parser/               # PDF parsing module (as specified)
+            │   ├── src/
+            │   │   ├── __init__.py
+            │   │   ├── main.py     # Main script for PDF parsing
+            │   │   ├── pdf_parser.py # PDF parsing implementation
+            │   │   └── ocr.py # OCR functionality
+            │   ├── tests/
+            │   │   ├── __init__.py
+            │   │   └── test_pdf_parser.py  # Tests for PDF parser
+            │   ├── docs/
+            │   │   └── README.md
+            │   ├── data/
+            │   │   ├── input/
+            │   │   └── output/
+            │   ├── requirements.txt
+            │   └── .gitignore
+            │
+            ├── interface/               # User interface module
+            │   ├── __init__.py
+            │   ├── streamlit_app.py     # Streamlit application for MVP
+            │   └── retool_integration.py # Optional: Integration with Retool if needed
+            │
+            ├── tests/                   # Integration and unit tests for the project
+            │   ├── __init__.py
+            │   └── test_end_to_end.py   # End-to-end tests of the pipeline
+            │
+            ├── docs/                    # Project documentation
+            │   ├── setup.md
+            │   ├── usage.md 
+            │   └── development.md
+            │
+            ├── requirements.txt         # Main project dependencies
+            └── .gitignore
 
 
 
