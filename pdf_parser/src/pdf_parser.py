@@ -18,3 +18,4 @@ def parse_pdf(pdf_path):
 # python src/main.py data/input/manual_utilizare_portal_onrc_recom.pdf
 
 #### end ####
+    

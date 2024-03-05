@@ -23,3 +23,4 @@ def apply_ocr_to_pdf(pdf_path, lang='eng+ron')):
 # python src/main.py data/input/manual_utilizare_portal_onrc_recom.pdf
 # python src/main.py data/input/Fascinant.pdf
 ### end ###
+    

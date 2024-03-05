@@ -119,14 +119,12 @@ tomaarsen/span-marker-mbert-base-multinerd
             ├── pdf_parser/               # PDF parsing module (as specified)
             │   ├── src/
             │   │   ├── __init__.py
-            │   │   ├── main.py     # Main script for PDF parsing
+            │   │   ├── pdf_parser_main.py     # Main script for PDF parsing
             │   │   ├── pdf_parser.py # PDF parsing implementation
             │   │   └── ocr.py # OCR functionality
             │   ├── tests/
             │   │   ├── __init__.py
             │   │   └── test_pdf_parser.py  # Tests for PDF parser
-            │   ├── docs/
-            │   │   └── README.md
             │   ├── data/
             │   │   ├── input/
             │   │   └── output/
@@ -175,5 +173,12 @@ Install with Docker:
             docker pull mongo
             docker run --name mongodb -d -p 27017:27017 mongo:latest
             docker exec -it mongodb mongosh
+            
+            For MongoDB Compass (GUI, like PgAdmin)
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+            brew install --cask mongodb-compass
+            connect to mongodb://localhost:27017
+
+
 
 
