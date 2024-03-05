@@ -52,8 +52,6 @@ SpaCy
 - Retool
 
 
-
-
 ## Pdf Parser
 KNOWLEDGE SOURCE
 
@@ -152,5 +150,30 @@ tomaarsen/span-marker-mbert-base-multinerd
             ├── requirements.txt         # Main project dependencies
             └── .gitignore
 
+
+
+
+## Develpoment Environment
+- Macbook Pro, M1 (Apple Silicone)
+- VS Code
+- Docker available
+
+
+## DB
+Install Locally:
+            brew tap mongodb/brew
+            brew install mongodb-community@5.0
+
+            Start& Stop
+            brew services start mongodb/brew/mongodb-community
+            brew services stop mongodb/brew/mongodb-community
+
+            Test Install
+            mongosh
+
+Install with Docker:
+            docker pull mongo
+            docker run --name mongodb -d -p 27017:27017 mongo:latest
+            docker exec -it mongodb mongosh
 
 

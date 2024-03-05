@@ -1,7 +1,7 @@
 # RAG-SOTA/ppdf_parser/tests/test_pdf_parser.py
 
 import unittest
-from src.pdf_parser import parse_pdf
+from pdf_parser.src.pdf_parser import parse_pdf
 
 class TestPDFParser(unittest.TestCase):
     def test_parse_pdf(self):
