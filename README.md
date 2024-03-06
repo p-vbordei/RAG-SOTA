@@ -94,60 +94,81 @@ tomaarsen/span-marker-mbert-base-multinerd
 
 ## Project Structure
 
-            RAG-SOTA/
-            ├── db/  
-            │   ├── __init__.py
-            │   ├── annotations_db.py     # Operations related to annotations storage
-            │   ├── documents_db.py       # Operations related to documents storage
-            │   └── mongo_client.py       # MongoDB client configuration
-            │   ├── save_to_db.py #  that handles the database interaction for OCR
-
-            ├── embedding/                # Module for document embedding
-            │   ├── __init__.py
-            │   └── api_client.py        # API client for external embedding services
-            │
-            ├── ner/                      # Named Entity Recognition (NER) module
-            │   ├── __init__.py
-            │   ├── ner_model.py         # NER model implementation
-            │   └── ner_utils.py         # Utilities for NER tasks
-            │
-            ├── knowledge_graph/         # Knowledge graph construction module
-            │   ├── __init__.py
-            │   ├── graph_builder.py     # Script for building knowledge graphs
-            │   └── graph_utils.py       # Utilities for graph operations
-            │
-            ├── pdf_parser/               # PDF parsing module (as specified)
-            │   ├── src/
-            │   │   ├── __init__.py
-            │   │   ├── pdf_parser_main.py     # Main script for PDF parsing
-            │   │   ├── pdf_parser.py # PDF parsing implementation
-            │   │   └── ocr.py # OCR functionality
-            │   ├── tests/
-            │   │   ├── __init__.py
-            │   │   └── test_pdf_parser.py  # Tests for PDF parser
-            │   ├── data/
-            │   │   ├── input/
-            │   │   └── output/
-            │   ├── requirements.txt
-            │   └── .gitignore
-            │
-            ├── interface/               # User interface module
-            │   ├── __init__.py
-            │   ├── streamlit_app.py     # Streamlit application for MVP
-            │   └── retool_integration.py # Optional: Integration with Retool if needed
-            │
-            ├── tests/                   # Integration and unit tests for the project
-            │   ├── __init__.py
-            │   └── test_end_to_end.py   # End-to-end tests of the pipeline
-            │
-            ├── docs/                    # Project documentation
-            │   ├── setup.md
-            │   ├── usage.md 
-            │   └── development.md
-            │
-            ├── requirements.txt         # Main project dependencies
-            └── .gitignore
-
+        RAG-SOTA/
+        ├── db/  
+        │   ├── __init__.py
+        │   ├── annotations_db.py          # Operations related to annotations storage
+        │   ├── documents_db.py            # Operations related to documents storage
+        │   ├── mongo_client.py            # MongoDB client configuration
+        │   └── save_to_db.py              # Handles the database interaction for OCR results and annotations
+        │
+        ├── embedding/                     
+        │   ├── __init__.py
+        │   ├── api_client.py              # API client for external embedding services
+        │   └── embedding_utils.py         # Utilities for generating and managing document embeddings
+        │
+        ├── indexing/                      
+        │   ├── __init__.py
+        │   ├── vector_store.py            # Handles creation and management of vector store indexes
+        │   └── semantic_search.py         # Implements semantic search capabilities
+        │
+        ├── rag/                           # Retrieval-Augmented Generation module
+        │   ├── __init__.py
+        │   ├── document_retriever.py      # Handles retrieval of documents based on queries
+        │   ├── answer_generator.py        # Generates answers from retrieved documents and annotations
+        │   └── rag_utils.py               # Utilities for RAG operations, including document scoring and ranking
+        │
+        ├── agents/                        
+        │   ├── __init__.py
+        │   ├── document_agent.py          # Implementation of document-specific agents
+        │   └── top_level_agent.py         # Implementation of the top-level orchestrating agent
+        │
+        ├── summarization/                 
+        │   ├── __init__.py
+        │   ├── summary_generator.py       # Script for generating document summaries
+        │   └── summary_index.py           # Handles indexing and retrieval of document summaries
+        │
+        ├── ner/                           
+        │   ├── __init__.py
+        │   ├── ner_model.py               # NER model implementation
+        │   └── ner_utils.py               # Utilities for NER tasks
+        │
+        ├── knowledge_graph/               
+        │   ├── __init__.py
+        │   ├── graph_builder.py           # Script for building knowledge graphs
+        │   └── graph_utils.py             # Utilities for graph operations
+        │
+        ├── pdf_parser/                    
+        │   ├── src/
+        │   │   ├── __init__.py
+        │   │   ├── pdf_parser_main.py     # Main script for PDF parsing
+        │   │   ├── pdf_parser.py          # PDF parsing implementation
+        │   │   └── ocr.py                 # OCR functionality
+        │   ├── tests/
+        │   │   ├── __init__.py
+        │   │   └── test_pdf_parser.py     # Tests for PDF parser
+        │   ├── data/
+        │   │   ├── input/
+        │   │   └── output/
+        │   ├── requirements.txt
+        │   └── .gitignore
+        │
+        ├── interface/                     
+        │   ├── __init__.py
+        │   ├── streamlit_app.py           # Streamlit application for MVP
+        │   └── retool_integration.py      # Optional: Integration with Retool if needed
+        │
+        ├── tests/                         
+        │   ├── __init__.py
+        │   └── test_end_to_end.py         # End-to-end tests of the pipeline
+        │
+        ├── docs/                          
+        │   ├── setup.md
+        │   ├── usage.md 
+        │   └── development.md
+        │
+        ├── requirements.txt               # Main project dependencies
+        └── .gitignore
 
 
 
