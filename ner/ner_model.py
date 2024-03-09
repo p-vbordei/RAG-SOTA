@@ -37,3 +37,7 @@ if __name__ == "__main__":
     annotations_id = extract_and_save_entities(document_id, text_to_analyze)
     print(f"Entities have been extracted and saved with annotation ID: {annotations_id}")
 """
+
+
+
+### end ###

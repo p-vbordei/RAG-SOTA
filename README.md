@@ -1,5 +1,6 @@
 # RAG-SOTA
 RAG using Document Adnotation --> Entity Resolution --> Knowledge Graphs
+https://github.com/run-llama/rags
 
 
 
@@ -202,4 +203,40 @@ Install with Docker:
 
 
 
+
+## RAG MODEL
+
+Tydpe of implementation will be "Hybrid Fusion"
+
+
+## Knowledge Graph
+
+https://siwei.io/en/demos/text2cypher/
+https://colab.research.google.com/drive/1tLjOg2ZQuIClfuWrAC2LdiZHCov8oUbs?usp=sharing#scrollTo=3g6agniJOudp
+
+## Key KG related components
+
+- [KnowledgeGraphIndex](https://gpt-index.readthedocs.io/en/stable/examples/index_structs/knowledge_graph/KnowledgeGraphDemo.html) is an Index to:
+  - Indexing stage:
+    - Extract data into KG with LLM or any other callable models
+    - Persist KG data into `storeage_context.graph_store`
+  - Querying stage:
+    - `as_query_engine()` to enable 0-shot Graph RAG
+    - `as_retriever()` to create an advanced Graph involving RAG
+- [KnowledgeGraphRAGRetriever](https://gpt-index.readthedocs.io/en/stable/examples/query_engine/knowledge_graph_rag_query_engine.html)
+  - Instanctiate:
+    - Create a `storeage_context.graph_store` as the init argument.
+  - Querying stage:
+    - pass to `RetrieverQueryEngine` to become a Graph RAG query engine on any existing KG
+    - combined with other RAG pipeline
+
+- [KnowledgeGraphQueryEngine](https://gpt-index.readthedocs.io/en/stable/examples/query_engine/knowledge_graph_query_engine.html), Text2Cypher Query engine
+  - Instanctiate:
+    - Create a `storeage_context.graph_store` as the init argument.
+  - Querying stage:
+    - Text2cypher to get answers towards the KG in graph_store.
+    - Optionally, `generate_query()` only compose a cypher query.
+
+
+     https://gpt-index.readthedocs.io/en/stable/examples/index_structs/knowledge_graph/KnowledgeGraphIndex_vs_VectorStoreIndex_vs_CustomIndex_combined.html
 

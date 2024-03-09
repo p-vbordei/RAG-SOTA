@@ -9,7 +9,7 @@ Module Dependencies: May require advanced graph query capabilities, potentially 
 2. visualize_graph(subgraph: Graph) -> None
 Purpose: Generate a visualization of a portion of the knowledge graph.
 Description: Takes a subgraph or the entire knowledge graph and produces a visual representation. This can be particularly useful for debugging, presentation purposes, or even allowing users to visually explore the knowledge contained within the system.
-Module Dependencies: Could utilize visualization libraries like pyvis or matplotlib for generating graph visuals.
+
 
 """
 

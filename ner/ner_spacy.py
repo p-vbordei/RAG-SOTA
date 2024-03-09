@@ -26,3 +26,4 @@ def extract_and_save_entities_spacy(document_id, text):
     return annotations_id
 
 ### end ###
+
