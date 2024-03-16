@@ -1,12 +1,36 @@
 # RAG-SOTA/interface/streamlit_app.py
+import sys
+
+
+import sys
+from pathlib import Path
+
+# Get the absolute path of the project root (RAG-SOTA directory)
+project_root = Path(__file__).parent.parent.absolute()
+print(sys.path)
+# Add the project root to the Python path
+if str(project_root) not in sys.path:
+    sys.path.append(str(project_root))
+
+print("after append")
+print(sys.path)
+print(project_root)
+# Now you can import your local modules
+from db.mongo_client import get_db
 
 import streamlit as st
-from db.mongo_client import get_db
 from db.save_to_db import save_ocr_results_to_db
 from rag.document_retriever import retrieve_documents
 from rag.answer_generator import generate_answer
 from pdf_parser.pdf_parser_main import parse_pdf
 from pdf_parser.ocr import apply_ocr_to_pdf
+
+
+from typing import List
+from indexing.semantic_search import fetch_document_details
+from rag.document_retriever import retrieve_documents
+from rag.answer_generator import generate_answer
+
 
 # Placeholder functions for OCR and PDF parsing, ensure to replace with your actual implementations
 def parse_pdf_and_ocr(file_path):
@@ -29,11 +53,6 @@ def upload_documents():
 def enter_query():
     query = st.text_input("Enter your query here:")
     return query
-
-from typing import List
-from db.documents_db import fetch_document_details
-from rag.document_retriever import retrieve_documents
-from rag.answer_generator import generate_answer
 
 def process_query(query: str) -> str:
     """

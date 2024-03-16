@@ -1,4 +1,5 @@
 # RAG-SOTA/indexing/semantic_search.py
+
 import numpy as np
 from typing import List
 from db.documents_db import fetch_all_document_embeddings

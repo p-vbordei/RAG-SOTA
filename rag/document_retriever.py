@@ -2,7 +2,7 @@
 
 
 from typing import List
-from db.documents_db import fetch_document_details
+from indexing.semantic_search import fetch_document_details
 from embedding.embedding_utils import generate_embeddings, calculate_similarity
 from indexing.semantic_search import search_documents
 

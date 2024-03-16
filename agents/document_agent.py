@@ -2,7 +2,8 @@
 from typing import Dict, List
 from rag.document_retriever import retrieve_documents
 from rag.answer_generator import generate_answer
-from db.documents_db import update_document, fetch_document_details
+from db.documents_db import update_document
+from indexing.semantic_search import fetch_document_details
 
 def process_query(document_ids: List[str], query: str) -> str:
     """

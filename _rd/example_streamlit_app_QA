@@ -1,7 +1,7 @@
 ## app.py
 
 from typing import List
-from db.documents_db import fetch_document_details
+from indexing.semantic_search import fetch_document_details
 from rag.document_retriever import retrieve_documents
 from rag.answer_generator import generate_answer
 
