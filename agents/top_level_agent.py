@@ -1,24 +1,58 @@
 # RAG-SOTA/agents/top_level_agent.py
+from typing import List
+from agents.document_agent import process_query as document_query_processor
+from indexing.semantic_search import search_documents
+
+def orchestrate_query_processing(query: str) -> str:
+    """
+    Orchestrates the entire query processing pipeline, delegating tasks to document agents or directly handling
+    queries for a comprehensive response.
+    
+    :param query: User's query as a string.
+    :return: A comprehensive answer synthesized from relevant information sources.
+    """
+    # Determine the most relevant documents for the query
+    document_ids = determine_relevant_documents(query)
+    
+    # Collect responses from the relevant document agents
+    responses = [document_query_processor(doc_id, query) for doc_id in document_ids]
+    
+    # Combine the responses into a single, coherent answer
+    answer = combine_responses(responses)
+    
+    return answer
+
+def determine_relevant_documents(query: str) -> List[str]:
+    """
+    Analyzes a query to route it to the most relevant document agents, determining which documents should be consulted.
+    
+    :param query: The query to analyze.
+    :return: A list of document IDs deemed most relevant to the query.
+    """
+    # Utilize semantic search to identify relevant document IDs
+    document_ids = search_documents(query, top_k=5)
+    
+    return document_ids
+
+def combine_responses(responses: List[str]) -> str:
+    """
+    Synthesizes a single, coherent answer from multiple responses.
+    
+    :param responses: List of responses from various document agents.
+    :return: A synthesized, comprehensive answer.
+    """
+    # Placeholder for response synthesis logic
+    if responses:
+        return " ".join(responses)
+    else:
+        return "I'm sorry, I couldn't find information related to your question."
+
+# Example Usage
+"""if __name__ == "__main__":
+    # A complex query that might span multiple documents or require broad knowledge
+    query = "What are the impacts of deforestation on global warming?"
+    answer = orchestrate_query_processing(query)    
+    print(answer)
 """
-This file implements the top-level orchestrating agent, which oversees the entire query processing pipeline, delegating specific tasks to document agents or directly handling queries that require a broader understanding across multiple documents.
-
-Functions:
-process_query(query: str) -> str
-
-Purpose: Handle a user's query, orchestrating the retrieval and generation process across multiple document agents to produce a coherent response.
-Description: This function takes a high-level query that may span multiple documents or topics, identifies relevant document agents or information sources, aggregates their responses, and synthesizes a comprehensive answer. It could involve complex logic for deciding which agents to consult based on the query's content.
-Module Dependencies: Relies on individual document_agent.py instances for handling document-specific queries and may use rag/document_retriever.py and rag/answer_generator.py for queries that don't neatly fall into the purview of a single document agent.
-route_query_to_agents(query: str) -> List[str]
-
-Purpose: Determine which document agents should be consulted to answer a given query.
-Description: Analyzes a query to route it to the most relevant document agents. This involves understanding the query's scope and content and matching it with the expertise of available document agents.
-Module Dependencies: May utilize indexing/semantic_search.py to help determine query relevance to specific documents or topics covered by document agents.
-Integration for Scalable Query Processing
-Integrating these agents into the RAG-SOTA architecture provides a structured and scalable way to process queries, from specific questions about a single document to complex inquiries spanning multiple topics or documents. This agent-based approach enables modular development, where each agent can be improved or extended independently, as well as simplifies the management of a potentially large and diverse set of documents.
-
-"""
-
-
-
 
 ### end ###

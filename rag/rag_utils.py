@@ -1,21 +1,36 @@
 # RAG-SOTA/rag/rag_utils.py
-"""
-Provides utility functions supporting RAG operations, such as document scoring and preprocessing.
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
 
-Functions:
-calculate_document_scores(documents: List[Document], query: str) -> Dict[Document, float]
+def preprocess_text(text: str) -> str:
+    """
+    Preprocesses text for NLP tasks by performing several normalization steps:
+    - Lowercasing the text to ensure case consistency.
+    - Removing punctuation to reduce noise in text analysis.
+    - Stripping extra whitespace for uniformity.
+    - Optionally, more preprocessing steps like stemming, lemmatization, or stopword removal can be added.
 
-Purpose: Calculate relevance scores for each document relative to the query.
-Module Dependencies: May use embedding/embedding_utils.py for document and query embeddings.
-preprocess_documents(documents: List[Document]) -> List[Document]
+    :param text: The original text string.
+    :return: The preprocessed text string.
+    """
+    # Lowercase the text
+    text = text.lower()
 
-Purpose: Preprocess documents to optimize them for the RAG model.
-Description: Similar to query preprocessing but applied to document text.
+    # Remove punctuation using a regular expression
+    text = re.sub(r'[^\w\s]', '', text)
 
-"""
+    # Remove extra whitespace
+    text = re.sub(r'\s+', ' ', text).strip()
 
+    return text
 
-
-
+def calculate_cosine_similarity(vector_a: np.ndarray, vector_b: np.ndarray) -> float:
+    """
+    Calculates the cosine similarity between two vectors.
+    :param vector_a: First vector.
+    :param vector_b: Second vector.
+    :return: Cosine similarity score.
+    """
+    return cosine_similarity(vector_a.reshape(1, -1), vector_b.reshape(1, -1))[0][0]
 
 ### end ###

@@ -1,22 +1,57 @@
 # RAG-SOTA/agents/document_agent.py
+from typing import Dict, List
+from rag.document_retriever import retrieve_documents
+from rag.answer_generator import generate_answer
+from db.documents_db import update_document, fetch_document_details
+
+def process_query(document_ids: List[str], query: str) -> str:
+    """
+    Processes a query related to specific documents and generates a response.
+    
+    :param document_ids: List of IDs of documents to manage.
+    :param query: The user's query as a string.
+    :return: A response generated based on information from the assigned documents.
+    """
+    # Retrieve relevant documents
+    documents = retrieve_documents(query, document_ids=document_ids)
+    
+    # Generate an answer based on the retrieved documents
+    answer = generate_answer(documents, query)
+    
+    return answer
+
+def update_document_knowledge(document_ids: List[str], document_updates: Dict[str, Dict]):
+    """
+    Updates the knowledge base with new or modified information related to specified documents.
+    
+    :param document_ids: List of document IDs that the updates apply to.
+    :param document_updates: A dictionary with document IDs as keys and updated information as values.
+    """
+    for doc_id, updates in document_updates.items():
+        if doc_id in document_ids:
+            # Update document in the database
+            update_document(doc_id, updates)
+            # Optionally, refresh local knowledge base if maintained
+            # This part is left for implementation based on specific requirements
+
+# Example Usage
+"""            
+if __name__ == "__main__":
+    # Define document IDs to manage
+    document_ids = ['doc1', 'doc2']
+    
+    # Process a query related to these documents
+    response = process_query(document_ids, "What is the summary of the project findings?")
+    print(response)
+    
+    # Update document knowledge with new information for 'doc1'
+    document_updates = {
+        'doc1': {
+            'summary': 'Updated project findings summary.',
+            'details': 'Detailed explanation of the updated findings.'
+        }
+    }
+    update_document_knowledge(document_ids, document_updates)
+
 """
-The agents/ module is designed to manage the interactions between the user, the document retrieval system, and the answer generation components within the RAG-SOTA project. It comprises two primary components: document_agent.py for handling queries related to specific documents and top_level_agent.py for orchestrating the overall query processing across multiple documents. This setup allows for a scalable and flexible architecture that can handle complex queries involving multiple sources of information.
-
-document_agent.py
-This file implements the document-specific agents responsible for managing interactions with individual documents or closely related groups of documents. Each document agent is capable of understanding queries specific to its assigned document(s), retrieving relevant information, and generating responses based on that information.
-
-Functions:
-process_query(query: str) -> str
-
-Purpose: Process a query specifically related to the agent's assigned document(s), and generate a relevant response.
-Description: This function takes a user's query, determines its relevance to the document(s) the agent is responsible for, retrieves necessary information from those documents, and formulates a response. It may involve calling document_retriever.py for document-specific information retrieval and answer_generator.py for generating answers based on the retrieved data.
-Module Dependencies: Depends on rag/document_retriever.py for retrieving information and rag/answer_generator.py for generating responses based on that information.
-update_document_knowledge(document_updates: Dict)
-
-Purpose: Update the agent's knowledge base with new or modified information related to its document(s).
-Description: Allows for the dynamic updating of the agent's information base, ensuring that it can provide the most current and relevant responses to queries.
-Module Dependencies: May interact with db/documents_db.py to fetch updated document information or directly receive updates from another component responsible for document management.
-
-"""
-
 ### end ###

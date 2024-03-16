@@ -1,21 +1,9 @@
 # RAG-SOTA/indexing/semantic_search.py
-"""
-
-Handles the semantic search functionality by leveraging document embeddings to find documents related to a user's query.
-
-Functions:
-search(query_embedding: np.array, top_k: int = 5) -> List[Document]
-Purpose: Perform a semantic search to retrieve the top k relevant documents based on a query embedding.
-Description: Compares the query embedding to document embeddings in the vector store to find the most similar documents.
-Module Dependencies: Depends on db/documents_db.py for accessing document data and embedding/embedding_utils.py for embedding operations.
-
-"""
-
-
 import numpy as np
 from typing import List
 from db.documents_db import fetch_all_document_embeddings
 from embedding.embedding_utils import calculate_similarity
+from pymongo import MongoClient
 
 def search_documents(query_embedding: np.array, top_k: int = 5) -> List[dict]:
     """
@@ -45,19 +33,25 @@ def search_documents(query_embedding: np.array, top_k: int = 5) -> List[dict]:
     
     return top_documents_details
 
+
+
 def fetch_document_details(document_id: str) -> dict:
     """
-    Fetch and return details of a document given its ID.
-    
-    This is a placeholder function. In a real scenario, this would interact with the documents database
-    to retrieve and return detailed information about a document (e.g., title, text, metadata).
-    
-    :param document_id: The ID of the document to fetch.
-    :return: A dictionary containing details of the document.
+    Fetch and return detailed information about a document given its ID.
     """
-    # This function needs to be implemented in the db/documents_db.py module
-    # Placeholder return statement
-    return {'document_id': document_id, 'title': 'Document Title', 'text': 'Document text...'}
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['ocr_documents_db']
+    document = db.documents.find_one({"_id": document_id})
+    
+    if not document:
+        return {"error": "Document not found."}
+    
+    # Optionally, enrich document details with annotations or additional metadata
+    annotations = db.annotations.find_one({"documentId": document_id})
+    if annotations:
+        document['annotations'] = annotations['annotations']
+    
+    return document
 
 
 
