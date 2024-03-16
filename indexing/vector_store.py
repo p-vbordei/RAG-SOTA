@@ -12,7 +12,7 @@ import faiss
 
 # Connect to MongoDB
 def get_db():
-    client = MongoClient(os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/'))
+    client = MongoClient('mongodb://localhost:27017/')
     return client.ocr_documents_db
 
 # Placeholder for the FAISS index. In a real application, this should be loaded from persistent storage or initialized properly.

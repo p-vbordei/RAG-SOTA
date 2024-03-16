@@ -22,5 +22,21 @@ def save_document(db, filename, text):
         print(f"An error occurred while saving the document: {e}")
         return None
 
+def fetch_all_document_embeddings():
+    """
+    Fetch embeddings for all documents stored in the database.
+    Returns a dictionary with document IDs as keys and embeddings as values.
+    """
+    db = get_db()  # Assuming get_db() is a function that returns a reference to the database
+    documents = db.documents.find({})  # Assuming your documents are stored in a 'documents' collection
+    
+    embeddings = {}
+    for doc in documents:
+        # Assuming each document has an 'embedding' field with the embedding stored as a list
+        # And an '_id' field used as the document ID
+        embeddings[str(doc['_id'])] = np.array(doc['embedding'])
+    return embeddings
+
+
 ### end ###
     
