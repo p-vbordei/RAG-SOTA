@@ -13,7 +13,7 @@ if str(project_root) not in sys.path:
 #print(sys.path)
 print(project_root)
 # Now you can import your local modules
-from db.mongo_client import get_db
+
 
 import streamlit as st
 from db.save_to_db import save_ocr_results_to_db
@@ -23,6 +23,12 @@ from pdf_parser.src.pdf_parser import parse_pdf
 from pdf_parser.src.ocr import apply_ocr_to_pdf
 from typing import List
 from indexing.semantic_search import fetch_document_details
+from pymongo import MongoClient
+
+def get_db():
+    client = MongoClient("mongodb://localhost:27017/")  # Adjust the connection string as per your MongoDB setup
+    db = client["ocr_documents_db"] 
+    return db
 
 
 # Placeholder functions for OCR and PDF parsing, ensure to replace with your actual implementations

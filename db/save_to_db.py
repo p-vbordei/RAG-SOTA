@@ -1,7 +1,14 @@
 # RAG-SOTA/db/save_to_db.py
-from .mongo_client import get_db
+
 from .annotations_db import save_annotations
 from .documents_db import save_document
+
+from pymongo import MongoClient
+
+def get_db():
+    client = MongoClient("mongodb://localhost:27017/")  # Adjust the connection string as per your MongoDB setup
+    db = client["ocr_documents_db"] 
+
 
 def save_ocr_results_to_db(filename, text, annotations):
     """
@@ -17,7 +24,7 @@ def save_ocr_results_to_db(filename, text, annotations):
     document_id = save_document(db, filename, text)
     if document_id:
         # If the document was saved successfully, save the annotations
-        annotations_id = save_annotations(db, document_id, annotations)
+        annotations_id = save_annotations(document_id, annotations)
         if annotations_id:
             print(f"Saved document and annotations for {filename} to the database.")
         else:

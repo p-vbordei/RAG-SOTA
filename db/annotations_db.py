@@ -1,5 +1,11 @@
 # RAG-SOTA/db/annotations_db.py
-from db.mongo_client import get_db
+from pymongo import MongoClient
+
+def get_db():
+    client = MongoClient("mongodb://localhost:27017/")  # Adjust the connection string as per your MongoDB setup
+    db = client["ocr_documents_db"]  
+    return db
+
 
 def save_annotations(document_id, annotations):
     db = get_db()

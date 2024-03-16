@@ -1,5 +1,11 @@
 # RAG-SOTA/db/documents_db.py
 from datetime import datetime
+from pymongo import MongoClient
+
+def get_db():
+    client = MongoClient("mongodb://localhost:27017/")  # Adjust the connection string as per your MongoDB setup
+    db = client["ocr_documents_db"] 
+    return db
 
 def save_document(db, filename, text):
     """
@@ -27,8 +33,8 @@ def fetch_all_document_embeddings():
     Fetch embeddings for all documents stored in the database.
     Returns a dictionary with document IDs as keys and embeddings as values.
     """
-    db = get_db()  # Assuming get_db() is a function that returns a reference to the database
-    documents = db.documents.find({})  # Assuming your documents are stored in a 'documents' collection
+    db = get_db()  
+    documents = db.documents.find({}) 
     
     embeddings = {}
     for doc in documents:
