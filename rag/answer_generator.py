@@ -52,7 +52,4 @@ def generate_answer(documents: List[str], query: str) -> str:
     answer = ' '.join([documents[i] for i in relevant_doc_indices])
     return answer
 
-
-
-
 ### end ###

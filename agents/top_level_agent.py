@@ -47,12 +47,5 @@ def combine_responses(responses: List[str]) -> str:
     else:
         return "I'm sorry, I couldn't find information related to your question."
 
-# Example Usage
-"""if __name__ == "__main__":
-    # A complex query that might span multiple documents or require broad knowledge
-    query = "What are the impacts of deforestation on global warming?"
-    answer = orchestrate_query_processing(query)    
-    print(answer)
-"""
 
 ### end ###

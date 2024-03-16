@@ -49,8 +49,5 @@ def fetch_all_document_embeddings():
     except Exception as e:
         print(f"An error occurred while fetching document embeddings: {e}")
         return {}
-
-
-
 ### end ###
     

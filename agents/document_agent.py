@@ -3,7 +3,6 @@ from typing import Dict, List
 from rag.document_retriever import retrieve_documents
 from rag.answer_generator import generate_answer
 from db.documents_db import update_document
-from indexing.semantic_search import fetch_document_details
 
 def process_query(document_ids: List[str], query: str) -> str:
     """
@@ -30,29 +29,6 @@ def update_document_knowledge(document_ids: List[str], document_updates: Dict[st
     """
     for doc_id, updates in document_updates.items():
         if doc_id in document_ids:
-            # Update document in the database
             update_document(doc_id, updates)
-            # Optionally, refresh local knowledge base if maintained
-            # This part is left for implementation based on specific requirements
 
-# Example Usage
-"""            
-if __name__ == "__main__":
-    # Define document IDs to manage
-    document_ids = ['doc1', 'doc2']
-    
-    # Process a query related to these documents
-    response = process_query(document_ids, "What is the summary of the project findings?")
-    print(response)
-    
-    # Update document knowledge with new information for 'doc1'
-    document_updates = {
-        'doc1': {
-            'summary': 'Updated project findings summary.',
-            'details': 'Detailed explanation of the updated findings.'
-        }
-    }
-    update_document_knowledge(document_ids, document_updates)
-
-"""
 ### end ###

@@ -37,7 +37,4 @@ def rank_documents(documents: List[dict], query_embedding: np.array) -> List[dic
     ranked_documents = sorted(documents, key=lambda x: x['similarity'], reverse=True)
     return ranked_documents
 
-
-
-
 ### end ###
