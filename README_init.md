@@ -233,3 +233,9 @@ In order to run Streamlit
         conda create --name rag python=3.10
         conda activate rag
         pip install -r requirements.txt
+
+
+### clear cache
+
+        sudo find / -type d -name "__pycache__" -exec rm -r {} +
+        pip cache purge
