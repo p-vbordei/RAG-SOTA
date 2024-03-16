@@ -221,3 +221,15 @@ For MongoDB Compass (GUI, like PgAdmin)
 In order to run Streamlit
 
         streamlit run interface/streamlit_app.py
+
+
+### pip install pipreqs
+
+        pipreqs /Users/vladbordei/Documents/Development/RAG-SOTA
+
+
+### create env
+
+        conda create --name rag python=3.10
+        conda activate rag
+        pip install -r requirements.txt

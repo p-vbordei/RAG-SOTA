@@ -38,7 +38,7 @@ If you're opening this Notebook on colab, you will probably need to install Llam
 # %pip install llama-index-embeddings-openai
 # %pip install llama-index-llms-openai
 
-!pip install llama-index
+
 
 from llama_index.core import (
     VectorStoreIndex,

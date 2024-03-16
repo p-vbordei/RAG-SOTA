@@ -9,7 +9,7 @@ from io import BytesIO
 pytesseract.pytesseract.tesseract_cmd = '/opt/homebrew/bin/tesseract'
   # Update this path (brew --prefix tesseract)
 
-def apply_ocr_to_pdf(pdf_path, lang='eng+ron')):
+def apply_ocr_to_pdf(pdf_path, lang='eng+ron'):
     doc = fitz.open(pdf_path)
     for page_num, page in enumerate(doc):
         for img_index, img in enumerate(page.get_images(full=True)):
