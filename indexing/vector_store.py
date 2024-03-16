@@ -1,7 +1,4 @@
 # RAG-SOTA/indexing/vector_store.py
-
-
-
 import numpy as np
 from pymongo import MongoClient
 import os
@@ -10,10 +7,10 @@ import os
 # For simplicity, let's consider a FAISS Index as an example. Ensure you have FAISS installed.
 import faiss
 
-# Connect to MongoDB
 def get_db():
-    client = MongoClient('mongodb://localhost:27017/')
-    return client.ocr_documents_db
+    client = MongoClient("mongodb://localhost:27017/")  # Adjust the connection string as per your MongoDB setup
+    db = client["ocr_documents_db"]  
+    return db
 
 # Placeholder for the FAISS index. In a real application, this should be loaded from persistent storage or initialized properly.
 dimension = 768  # Example dimension, adjust based on your actual embeddings

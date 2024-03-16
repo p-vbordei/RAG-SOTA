@@ -19,8 +19,7 @@ import streamlit as st
 from db.save_to_db import save_ocr_results_to_db
 from rag.document_retriever import retrieve_documents
 from rag.answer_generator import generate_answer
-from pdf_parser.src.pdf_parser import parse_pdf
-from pdf_parser.src.ocr import apply_ocr_to_pdf
+from pdf_parser.pdf_parser import parse_pdf, apply_ocr_to_pdf
 from typing import List
 from indexing.semantic_search import fetch_document_details
 from pymongo import MongoClient

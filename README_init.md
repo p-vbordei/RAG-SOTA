@@ -123,7 +123,6 @@ https://llamahub.ai/l/readers/llama-index-readers-nougat-ocr?from=
     ├── db/  
     │   ├── __init__.py
     │   ├── documents_db.py            # Operations related to documents storage
-    │   ├── mongo_client.py            # MongoDB client configuration
     │   └── save_to_db.py              # Handles the database interaction for OCR results
     │
     ├── embedding/                     
@@ -153,11 +152,8 @@ https://llamahub.ai/l/readers/llama-index-readers-nougat-ocr?from=
     │   └── summary_index.py           # Handles indexing and retrieval of document summaries
     │
     ├── pdf_parser/                    
-    │   ├── src/
-    │   │   ├── __init__.py
-    │   │   ├── pdf_parser_main.py     # Main script for PDF parsing
-    │   │   ├── pdf_parser.py          # PDF parsing implementation
-    │   │   └── ocr.py                 # OCR functionality
+    │   │── __init__.py
+    │   │── pdf_parser.py          # PDF parsing implementation
     │   ├── tests/
     │   │   ├── __init__.py
     │   │   └── test_pdf_parser.py     # Tests for PDF parser
