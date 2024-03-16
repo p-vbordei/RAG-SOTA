@@ -1,4 +1,57 @@
-# RAG-SOTA
+# RAG-SOTA Project Documentation
+
+## Overview
+RAG-SOTA (Retrieval-Augmented Generation - State Of The Art) is a evolving project aimed at developing a cutting-edge document processing and query answering system. It utilizes advanced NLP techniques for efficient information retrieval, document annotation, and generating coherent responses to user queries. Designed for scalability, it caters to SMEs with a focus on simplicity, efficiency, and secure handling of proprietary data.
+
+## Project Structure and Functions
+
+### Database (`db/`)
+- **MongoDB Integration**: Leverages MongoDB for storing and managing documents and OCR results.
+- **Document Management**: Facilitates storing, updating, and retrieving document details, including text extracted via OCR.
+- **Annotation Management**: Manages saving, fetching, and updating annotations for enhanced document retrieval and response generation.
+
+### Embedding (`embedding/`)
+- **Embedding Utilities**: Generates and manages document and query embeddings, leveraging pre-trained models for semantic understanding.
+
+### Indexing (`indexing/`)
+- **Semantic Search**: Implements semantic search capabilities to find documents relevant to query embeddings.
+- **Vector Store Management**: Manages document embedding storage and retrieval for semantic search efficiency.
+
+### Retrieval-Augmented Generation (`rag/`)
+- **Document Retrieval**: Retrieves documents relevant to user queries through semantic search.
+- **Answer Generation**: Synthesizes responses from retrieved documents using NLP and machine learning techniques.
+- **Utility Functions**: Supports RAG operations, including document scoring and ranking.
+
+### Agents (`agents/`)
+- **Document-Specific Agents**: Handle interactions with documents, processing queries specific to assigned documents.
+- **Top-Level Agent**: Orchestrates query processing across multiple documents or sources for comprehensive answers.
+
+### Summarization (`summarization/`)
+- **Summary Generation**: Generates document summaries for quick overviews and answer synthesis.
+- **Summary Indexing and Retrieval**: Manages the indexing and retrieval of document summaries to improve query processing.
+
+### PDF Parser (`pdf_parser/`)
+- **PDF Text Extraction**: Extracts text from PDFs for processing and storage.
+- **OCR Functionality**: Applies Optical Character Recognition (OCR) to scanned documents for text extraction and annotation.
+
+### Interface (`interface/`)
+- **Streamlit Application**: Offers a user-friendly interface for document uploads, query inputs, and displaying responses.
+- **Retool Integration**: Optional integration with Retool for enhanced UI/UX in future iterations.
+
+### Tests (`tests/`)
+- **End-to-End Testing**: Provides a testing framework for the complete system, from document upload to query response.
+
+## Development Environment
+Developed and tested on MacBook Pro with M1 chip, utilizing Docker for containerization, MongoDB for database management, and Streamlit for web interface development.
+
+## Installation & Getting Started
+
+1. **MongoDB Setup**: Install MongoDB locally or via Docker. Ensure the MongoDB service is running.
+   ```bash
+   brew tap mongodb/brew
+   brew install mongodb-community@5.0
+   brew services start mongodb/brew/mongodb-community
+
 RAG using Document Annotation
 https://github.com/run-llama/rags
 
@@ -139,28 +192,32 @@ Docker available
 
 ### DB
 Install Locally:
-brew tap mongodb/brew
-brew install mongodb-community@5.0
 
-bash
+        brew tap mongodb/brew
+        brew install mongodb-community@5.0
+
+Run mongo
+
         Start & Stop
         brew services start mongodb/brew/mongodb-community
         brew services stop mongodb/brew/mongodb-community
 
         Test Install
         mongosh
-Install with Docker:
-docker pull mongo
-docker run --name mongodb -d -p 27017:27017 mongo:latest
-docker exec -it mongodb mongosh
 
-bash
-        For MongoDB Compass (GUI, like PgAdmin)
+Install with Docker:
+
+        docker pull mongo
+        docker run --name mongodb -d -p 27017:27017 mongo:latest
+        docker exec -it mongodb mongosh
+
+
+For MongoDB Compass (GUI, like PgAdmin)
+
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         brew install --cask mongodb-compass
         connect to mongodb://localhost:27017
 
+In order to run Streamlit
 
-### RAG MODEL
-Type of implementation will be "Hybrid Fusion"
-
+        streamlit run interface/streamlit_app.py
