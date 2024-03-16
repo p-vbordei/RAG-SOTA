@@ -53,6 +53,4 @@ def fetch_document_details(document_id: str) -> dict:
     
     return document
 
-
-
 ### end ###
