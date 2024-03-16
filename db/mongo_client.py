@@ -6,4 +6,5 @@ def get_db():
     client = MongoClient('mongodb://localhost:27017/')
     db = client['ocr_documents_db']
     return db
+
 ### end ###

@@ -6,8 +6,10 @@ from .documents_db import save_document
 from pymongo import MongoClient
 
 def get_db():
-    client = MongoClient("mongodb://localhost:27017/")  # Adjust the connection string as per your MongoDB setup
-    db = client["ocr_documents_db"] 
+    client = MongoClient('mongodb://localhost:27017/')
+    db = client['ocr_documents_db']
+    return db
+
 
 
 def save_ocr_results_to_db(filename, text, annotations):

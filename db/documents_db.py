@@ -1,6 +1,7 @@
 # RAG-SOTA/db/documents_db.py
 from datetime import datetime
 from pymongo import MongoClient
+import numpy as np
 
 def get_db():
     client = MongoClient("mongodb://localhost:27017/")  # Adjust the connection string as per your MongoDB setup
@@ -28,20 +29,27 @@ def save_document(db, filename, text):
         print(f"An error occurred while saving the document: {e}")
         return None
 
+
 def fetch_all_document_embeddings():
     """
     Fetch embeddings for all documents stored in the database.
     Returns a dictionary with document IDs as keys and embeddings as values.
     """
-    db = get_db()  
-    documents = db.documents.find({}) 
-    
-    embeddings = {}
-    for doc in documents:
-        # Assuming each document has an 'embedding' field with the embedding stored as a list
-        # And an '_id' field used as the document ID
-        embeddings[str(doc['_id'])] = np.array(doc['embedding'])
-    return embeddings
+    try:
+        db = get_db()
+        documents = db.documents.find({})
+
+        embeddings = {}
+        for doc in documents:
+            if 'embedding' in doc:
+                embeddings[str(doc['_id'])] = np.array(doc['embedding'])
+            else:
+                print(f"Document {doc['_id']} does not have an embedding.")
+        return embeddings
+    except Exception as e:
+        print(f"An error occurred while fetching document embeddings: {e}")
+        return {}
+
 
 
 ### end ###

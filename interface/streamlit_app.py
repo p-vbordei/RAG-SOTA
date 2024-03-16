@@ -31,11 +31,22 @@ def get_db():
     return db
 
 
-# Placeholder functions for OCR and PDF parsing, ensure to replace with your actual implementations
 def parse_pdf_and_ocr(file_path):
-    text = parse_pdf(file_path)  # Assume this function returns text from PDF
-    annotations = apply_ocr_to_pdf(file_path)  # Assume this function returns annotations from OCR
-    return text, annotations
+    try:
+        # Attempt to parse the PDF and extract text
+        text = parse_pdf(file_path)  # Assume this function returns text from PDF
+        
+        # Attempt to apply OCR to the PDF
+        annotations = apply_ocr_to_pdf(file_path)  # Assume this function returns annotations from OCR
+        
+        # Return the extracted text and annotations
+        return text, annotations
+    
+    except Exception as e:
+        # If an error occurs during parsing or OCR, print the error message and return None for both text and annotations
+        print(f"Error parsing PDF and applying OCR: {e}")
+        return None, None
+
 
 def upload_documents():
     uploaded_files = st.file_uploader("Choose PDF or Word documents", accept_multiple_files=True, type=['pdf', 'docx'])
