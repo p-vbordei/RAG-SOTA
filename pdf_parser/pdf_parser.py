@@ -1,4 +1,4 @@
-# RAG-SOTA/pdf_parser/src/pdf_parser.py
+# RAG-SOTA/pdf_parser/pdf_parser.py
 import argparse
 import os
 from PIL import Image
@@ -14,6 +14,25 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.INFO)  # Set logging level to INFO
 
+
+import os
+from llamaindex.loading import SimpleDirectoryReader
+import logging
+
+def process_document(file_path):
+    """
+    Process a single document, applying OCR if it's a PDF that requires it.
+    
+    :param file_path: The path to the document.
+    :return: The text content extracted from the document.
+    """
+    if file_path.endswith('.pdf'):
+        if needs_ocr(file_path):
+            apply_ocr_to_pdf(file_path)
+        return parse_pdf(file_path)
+    else:
+        # Add your processing logic for other document types here
+        pass  # Placeholder for other document processing
 
 
 
@@ -33,6 +52,28 @@ def apply_ocr_to_pdf(pdf_path, lang='eng+ron'):
             print(f"OCR Text for image {img_index} on page {page_num} [{lang}]: {text}")
     doc.close()
 
+def needs_ocr(pdf_path):
+    """
+    Determine if OCR needs to be performed on the PDF file.
+
+    :param pdf_path: The path to the PDF file.
+    :return: True if OCR is needed, False otherwise.
+    """
+    try:
+        with pdfplumber.open(pdf_path) as pdf:
+            for page_num, page in enumerate(pdf.pages):
+                try:
+                    # Extract text from the page
+                    page_text = page.extract_text()
+                    # Check if page text is empty
+                    if not page_text:
+                        return True  # OCR is needed if page text is empty
+                except Exception as page_error:
+                    logging.warning(f"Error processing page {page_num + 1} of {pdf_path}: {page_error}")
+        return False  # OCR is not needed if all pages have text
+    except Exception as pdf_error:
+        logging.error(f"Error processing {pdf_path}: {pdf_error}")
+        return False  # Assume OCR is not needed in case of any error
 
 
 
@@ -57,37 +98,43 @@ def parse_pdf(pdf_path):
     except Exception as pdf_error:
         logging.error(f"Error processing {pdf_path}: {pdf_error}")
         return None
+    
+
+def parse_documents_from_path_with_llama_index(path):
+    """
+    Parse documents from a given path using Llama Index's Simple Directory Reader. 
+    Applies OCR to PDFs if necessary.
+    
+    :param path: The path to the directory containing documents or to a single document.
+    :return: A list containing the extracted text content from each document, or None if an error occurs.
+    """
+    try:
+        text_contents = []
+        if os.path.isdir(path):
+            # Use Simple Directory Reader to iterate through each file in the directory
+            reader = SimpleDirectoryReader(path)
+            for file_path in reader.file_paths:
+                print(f"Processing {file_path}...")
+                text_content = process_document(file_path)
+                if text_content:
+                    text_contents.append(text_content)
+        elif os.path.isfile(path):
+            # Single file processing
+            print(f"Processing {path}...")
+            text_content = process_document(path)
+            if text_content:
+                text_contents.append(text_content)
+        else:
+            print("Invalid path or file format. Please provide a valid file or directory path.")
+            return None
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
+        return None
+    
+    return text_contents
 
 # python -m unittest tests/test_pdf_parser.py
 # python src/main.py data/input/manual_utilizare_portal_onrc_recom.pdf
-
-    
-
-def main():
-    parser = argparse.ArgumentParser(description='PDF Parser')
-    parser.add_argument('path', help='Path to the PDF file or directory to parse')
-    args = parser.parse_args()
-
-    if os.path.isdir(args.path):
-        # If input is a directory, parse each PDF in it
-        for filename in os.listdir(args.path):
-            if filename.endswith('.pdf'):
-                pdf_path = os.path.join(args.path, filename)
-                print(f"Parsing {pdf_path}...")
-                parse_pdf(pdf_path)
-                # Optionally apply OCR
-                apply_ocr_to_pdf(pdf_path)
-    elif os.path.isfile(args.path) and args.path.endswith('.pdf'):
-        # Single PDF file
-        print(f"Parsing {args.path}...")
-        parse_pdf(args.path)
-        # Optionally apply OCR
-        apply_ocr_to_pdf(args.path)
-    else:
-        print("Invalid path or file format. Please provide a PDF file or directory containing PDFs.")
-
-if __name__ == "__main__":
-    main()
 
 
 #### end ####

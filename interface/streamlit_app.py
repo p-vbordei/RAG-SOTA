@@ -19,7 +19,6 @@ import streamlit as st
 from db.save_to_db import save_ocr_results_to_db
 from rag.document_retriever import retrieve_documents
 from rag.answer_generator import generate_answer
-from pdf_parser.pdf_parser import parse_pdf, apply_ocr_to_pdf
 from typing import List
 from indexing.semantic_search import fetch_document_details
 from pymongo import MongoClient
@@ -30,41 +29,38 @@ def get_db():
     return db
 
 
-def parse_pdf_and_ocr(file_path):
-    try:
-        # Attempt to parse the PDF and extract text
-        text = parse_pdf(file_path)  # Assume this function returns text from PDF
+# Adjusted function within streamlit_app.py
+from pdf_parser.pdf_parser import parse_documents_from_path_with_llama_index
+
+def process_and_save_documents(uploaded_files):
+    uploads_dir = Path.cwd() / "uploaded_files"
+    uploads_dir.mkdir(exist_ok=True)
+
+    for uploaded_file in uploaded_files:
+        file_path = uploads_dir / uploaded_file.name
+        with open(file_path, "wb") as f:
+            f.write(uploaded_file.getbuffer())
         
-        # Attempt to apply OCR to the PDF
-        annotations = apply_ocr_to_pdf(file_path)  # Assume this function returns annotations from OCR
+        documents_contents = parse_documents_from_path_with_llama_index(str(file_path))
+        text = "\n".join(documents_contents) if documents_contents else None
         
-        # Return the extracted text and annotations
-        return text, annotations
-    
-    except Exception as e:
-        # If an error occurs during parsing or OCR, print the error message and return None for both text and annotations
-        print(f"Error parsing PDF and applying OCR: {e}")
-        return None, None
+        # Save to database (pseudo code, implement according to your schema)
+        db = get_db()
+        db.documents.insert_one({"filename": uploaded_file.name, "content": text})
+
 
 
 def upload_documents():
-    uploaded_files = st.file_uploader("Choose PDF or Word documents", accept_multiple_files=True, type=['pdf', 'docx'])
+    uploaded_files = st.file_uploader("Choose files", accept_multiple_files=True,
+                                      type=['pdf', 'docx', 'png', 'jpg', 'jpeg', 'txt', 'md', 'ipynb', 'csv', 'pptx', 'mp3', 'mp4'])
     if uploaded_files:
         # Define the directory to save uploaded files, e.g., under "uploaded_files" within the project root.
         uploads_dir = project_root / "uploaded_files"
         uploads_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist.
 
-        for uploaded_file in uploaded_files:
-            # Create a file path for the uploaded file within the uploads_dir.
-            file_path = uploads_dir / uploaded_file.name
-            
-            # Write the uploaded file's contents to the file path.
-            with open(file_path, "wb") as f:
-                f.write(uploaded_file.getbuffer())
-            
-            # Process the uploaded file.
-            text, annotations = parse_pdf_and_ocr(file_path)
-            save_ocr_results_to_db(uploaded_file.name, text, annotations)
+    if uploaded_files:
+        process_and_save_documents(uploaded_files)
+        st.success("Files processed and saved successfully.")
 
 
 def enter_query():
