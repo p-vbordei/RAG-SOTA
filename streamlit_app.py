@@ -21,6 +21,8 @@ from llama_index.core import StorageContext
 from llama_index.core import Response
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.core import Settings
+from llama_index.core import SimpleDirectoryReader
+from llama_parse import LlamaParse
 Settings.embed_model = OpenAIEmbedding()
 
 
@@ -40,24 +42,16 @@ Settings.llm = llm
 Settings.embed_model = embed_model
 
 
-"""
-from llama_parse import LlamaParse  # pip install llama-parse
 
-parser = LlamaParse(
-    api_key=LLAMA_CLOUD_API_KEY,  # can also be set in your env as LLAMA_CLOUD_API_KEY
-    result_type="markdown"  # "markdown" and "text" are available
-)
-file_extractor = {".pdf": parser}
-reader = SimpleDirectoryReader("./data", file_extractor=file_extractor)
-documents = reader.load_data()
+
+
 
 """
-
-
 def get_db():
     client = MongoClient("mongodb://localhost:27017/")  # Adjust the connection string as per your MongoDB setup
     db = client["ocr_documents_db"] 
     return db
+"""
 
 def get_vector_storage():
     client = MongoClient("mongodb://localhost:27017/")  # Adjust the connection string as per your MongoDB setup
@@ -71,35 +65,43 @@ def get_vector_storage():
 # https://docs.llamaindex.ai/en/stable/module_guides/models/embeddings.html
 
 
-
-def process_and_save_documents(uploaded_files):
-    uploads_dir = Path.cwd() / "uploaded_files"
-    uploads_dir.mkdir(exist_ok=True)
-
-    for uploaded_file in uploaded_files:
-        file_path = uploads_dir / uploaded_file.name
-        with open(file_path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        
-        documents_contents = parse_documents_from_path_with_llama_index(str(file_path))
-        text = "\n".join(documents_contents) if documents_contents else None
-        
-        # Save to database (pseudo code, implement according to your schema)
-        db = get_db()
-        db.documents.insert_one({"filename": uploaded_file.name, "content": text})
+from llama_index.core.node_parser import SimpleNodeParser
+node_parser = SimpleNodeParser()
+nodes = node_parser.get_nodes_from_documents(documents)
 
 
-def upload_documents():
+
+from pathlib import Path
+
+def upload_and_process_documents():
+    # Initiate file upload through the UI
     uploaded_files = st.file_uploader("Choose files", accept_multiple_files=True,
                                       type=['pdf', 'docx', 'png', 'jpg', 'jpeg', 'txt', 'md', 'ipynb', 'csv', 'pptx', 'mp3', 'mp4'])
+    docs = []
     if uploaded_files:
-        # Define the directory to save uploaded files, e.g., under "uploaded_files" within the project root.
-        uploads_dir = project_root / "uploaded_files"
-        uploads_dir.mkdir(exist_ok=True)  # Create the directory if it doesn't exist.
-
-    if uploaded_files:
-        process_and_save_documents(uploaded_files)
+        # Define and ensure the directory for saving uploaded files exists
+        uploads_dir = Path.cwd() / "uploaded_files"
+        uploads_dir.mkdir(exist_ok=True)
+        
+        # Save uploaded files to the specified directory
+        for uploaded_file in uploaded_files:
+            file_path = uploads_dir / uploaded_file.name
+            with open(file_path, "wb") as f:
+                f.write(uploaded_file.getbuffer())
+        
+        # Setup the parser with an API key and the desired result type
+        parser = LlamaParse(api_key="LLAMA_CLOUD_API_KEY", result_type="markdown")
+        file_extractor = {".pdf": parser}
+        
+        # Process the saved files using the specified parser
+        reader = SimpleDirectoryReader(uploads_dir, file_extractor=file_extractor)
+        docs = reader.load_data()
+        
+        # Notify the user of success
         st.success("Files processed and saved successfully.")
+    
+    return docs
+
 
 
 def enter_query():
@@ -143,14 +145,10 @@ if ref_doc_id:
 
 def main():
 
+    st.title("RAG-SOTA Document Query Application")
+    docs = upload_and_process_documents()
     v_store, vector_storage_context = get_vector_storage()
     vector_index = VectorStoreIndex.from_documents( docs, storage_context= vector_storage_context, embed_model=embed_model)
-
-    print("number of docs in vector index is:")
-    print(v_store._collection.count_documents({}))
-
-    st.title("RAG-SOTA Document Query Application")
-    upload_documents()
 
     print("number of docs in vector index after upload is:")
     print(v_store._collection.count_documents({}))
