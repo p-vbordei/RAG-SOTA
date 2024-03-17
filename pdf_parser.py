@@ -54,6 +54,8 @@ def apply_ocr_to_pdf(pdf_path, lang='eng+ron'):
             print(f"OCR Text for image {img_index} on page {page_num} [{lang}]: {text}")
     doc.close()
 
+
+
 def needs_ocr(pdf_path):
     """
     Determine if OCR needs to be performed on the PDF file.
